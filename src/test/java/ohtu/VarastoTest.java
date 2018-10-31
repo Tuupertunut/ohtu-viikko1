@@ -104,6 +104,13 @@ public class VarastoTest {
     }
 
     @Test
+    public void luontiAlkusaldollaAsettaaSaldon() {
+        Varasto v = new Varasto(5, 4);
+
+        assertEquals(4, v.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
     public void negatiivinenLuontiAlkusaldollaLuoNollanKokoisen() {
         Varasto v = new Varasto(-1, 5);
 
