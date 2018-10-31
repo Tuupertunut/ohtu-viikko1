@@ -1,4 +1,6 @@
-package ohtu;
+package main;
+
+import ohtu.Varasto;
 
 public class Main {
 
