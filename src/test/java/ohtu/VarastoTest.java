@@ -1,7 +1,6 @@
 package ohtu;
 
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,4 +59,68 @@ public class VarastoTest {
         assertEquals(4, varasto.paljonkoMahtuu(), vertailuTarkkuus);
     }
 
+    @Test
+    public void negatiivinenLisaysEiLisaa() {
+        varasto.lisaaVarastoon(-1);
+
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void ylitaysiLisaysTayttaa() {
+        varasto.lisaaVarastoon(38);
+
+        assertEquals(10, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void negatiivinenPoistoEiPoista() {
+        varasto.lisaaVarastoon(5);
+        varasto.otaVarastosta(-1);
+
+        assertEquals(5, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void liikaaPoistaminenTyhjentaa() {
+        varasto.lisaaVarastoon(5);
+        varasto.otaVarastosta(50);
+
+        assertEquals(0, varasto.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void toStringKertooOlennaisen() {
+        varasto.lisaaVarastoon(4);
+
+        assertEquals("saldo = 4.0, vielä tilaa 6.0", varasto.toString());
+    }
+
+    @Test
+    public void negatiivinenLuontiLuoNollanKokoisen() {
+        Varasto v = new Varasto(-1);
+
+        assertEquals(0, v.getTilavuus(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void negatiivinenLuontiAlkusaldollaLuoNollanKokoisen() {
+        Varasto v = new Varasto(-1, 5);
+
+        assertEquals(0, v.getTilavuus(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void ylitaydellaAlkusaldollaLuontiLuoTayden() {
+        Varasto v = new Varasto(3, 5);
+
+        assertEquals(3, v.getSaldo(), vertailuTarkkuus);
+    }
+
+    @Test
+    public void negatiivisellaAlkusaldollaLuontiLuoTyhjan() {
+        Varasto v = new Varasto(3, -2);
+
+        assertEquals(0, v.getSaldo(), vertailuTarkkuus);
+    }
 }
